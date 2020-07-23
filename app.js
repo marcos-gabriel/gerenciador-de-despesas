@@ -127,7 +127,9 @@ function cadastrarDespesa() {
     let descricao = document.getElementById('descricao')
     let valor = document.getElementById('valor')
 
-    let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, valor.value)
+    let valorTratado = parseFloat(valor.value.replace(',','.')).toFixed(2)
+
+    let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, parseFloat(valorTratado))
 
     if(despesa.validarDados()) {
         bd.gravar(despesa)
@@ -151,7 +153,7 @@ function cadastrarDespesa() {
     } else {
         document.getElementById('modal-header').className = 'modal-header text-danger'
         document.getElementById('modal_titulo').innerHTML = 'Erro na inclusão do registro'
-        document.getElementById('modal-body').innerHTML = 'Existem campos obrigatórios que não foram preenchidos'
+        document.getElementById('modal-body').innerHTML = 'Existem campos que não foram preenchidos'
         document.getElementById('btn-voltar').innerHTML = 'Voltar e corrigir'
         document.getElementById('btn-voltar').className = 'btn btn-danger'
 
@@ -237,7 +239,7 @@ function carregaListaDespesas(despesas = Array(), filtro = false) {
 
         linha.insertCell(4).append(btn)
 
-        somaValorTotal += parseFloat(d.valor)
+        somaValorTotal += d.valor
     })
 
     //Somar despesas
