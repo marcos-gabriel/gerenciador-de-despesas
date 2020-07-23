@@ -177,6 +177,8 @@ function carregaListaDespesas(despesas = Array(), filtro = false) {
         <td>R$ 150,00</td>
     </tr>*/ 
 
+    var somaValorTotal = 0
+
     //percorrer o array despesas, listando cada despesa de forma dinâmica
     despesas.forEach(function(d) {
         
@@ -205,7 +207,7 @@ function carregaListaDespesas(despesas = Array(), filtro = false) {
         linha.insertCell(1).innerHTML = d.tipo
         linha.insertCell(2).innerHTML = d.descricao
         linha.insertCell(3).innerHTML = `R$ ${d.valor}`
-        
+
         //criar o botão de exclusão
         let btn = document.createElement("button")
         btn.className = 'btn btn-danger'
@@ -235,9 +237,11 @@ function carregaListaDespesas(despesas = Array(), filtro = false) {
 
         linha.insertCell(4).append(btn)
 
-        console.log(d)
-
+        somaValorTotal += parseFloat(d.valor)
     })
+
+    //Somar despesas
+    document.getElementById('totalDespesas').innerHTML = `R$ ${somaValorTotal}`
 }
 
 function pesquisarDespesa() {
